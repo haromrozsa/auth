@@ -1,7 +1,6 @@
 const Authentication = require('./controllers/authentication');
 const passportService = require('./services/passport');
 const passport = require('passport');
-const Strategy = require('./controllers/stostrategy');
 const Historical = require('./controllers/historical');
 
 const requireAuth = passport.authenticate('jwt', { session: false});
@@ -13,7 +12,6 @@ module.exports = function(app) {
   });
   app.post('/signin', requiresSignin, Authentication.signin);
   app.post('/signup', Authentication.signup);
-  app.post('/save', Strategy.stoStrategy);
   app.post('/security/historical/monthly', Historical.getOrCreateMonthly);
   app.post('/security/historical/weekly', Historical.getOrCreateWeekly);
 }
