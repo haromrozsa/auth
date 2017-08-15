@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 //Define our model
 const weeklyDataSchema = new Schema({
+  key: Number,
   symbol: String,
   date: Date,
   open: Number,
@@ -11,6 +12,26 @@ const weeklyDataSchema = new Schema({
   low: Number,
   volume: Number,
   adjClose: Number,
+  weekly_change: Number,
+  weekly_status: String,
+  status: String,
+  nextStatus: String,
+  action: String,
+  nextAction: String,
+  full_STO: {
+    K: Number,
+    D: Number,
+  },
+  macd: {
+    macd: Number,
+    signal: Number,
+    divergence: Number,
+  },
+  bb: {
+    top: Number,
+    middle: Number,
+    bottom: Number,
+  },
   monthy_data: {
     weekly_start_date: String,
     weekly_end_date: String,
@@ -25,7 +46,15 @@ const weeklyDataSchema = new Schema({
     monthly_3_smoothed_K: Number,
     monthly_before_1_K: Number,
     monthly_before_2_K: Number,
-    mondthy_3_smoothed_D: Number
+    mondthy_3_smoothed_D: Number,
+    monthy_change: Number,
+    monthly_status: String
+  },
+  next_monthy_data: {
+    next_monthly_K: Number,
+    next_mondthy_3_smoothed_D: Number,
+    next_monthly_3_smoothed_K: Number,
+    next_monthly_status: String
   }
 });
 

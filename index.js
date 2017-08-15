@@ -12,8 +12,8 @@ mongoose.connect('mongodb://localhost:auth/auth');
 
 //App shouldComponentUpdate
 app.use(morgan('combined'));
-app.use(cors()); 
-app.use(bodyParser.json({ tpye: '*.*'}));
+app.use(cors());
+app.use(bodyParser.json({ tpye: '*.*', limit: '10mb'}));
 router(app);
 
 //Server Setup
