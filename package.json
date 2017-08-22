@@ -1,11 +1,14 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "",
+  "description": "Demo app to practice node.js and heroku",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js"
+  },
+  "engines": {
+    "node": "6.9.4"
   },
   "author": "'Adam <'haromrozsa@gmail.com'>",
   "license": "MIT",
@@ -26,5 +29,9 @@
     "passport-jwt": "2.2.1",
     "passport-local": "1.0.0",
     "yahoo-finance": "0.2.16"
-  }
+  },
+  "keywords": [
+    "example",
+    "heroku"
+  ]
 }
