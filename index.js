@@ -9,11 +9,12 @@ const cors = require('cors');
 
 //DB Setup
 //mongoose.connect('mongodb://localhost:auth/auth');
-mongoose.connect(process.env.MONGODB_URI);
+const connectURL = process.env.MONGODB_URI || 'mongodb://localhost:auth/auth';
+mongoose.connect(connectURL);
 
 //App shouldComponentUpdate
 app.use(morgan('combined'));
-app.use(cors());
+//app.use(cors());
 app.use(bodyParser.json({ tpye: '*.*', limit: '10mb'}));
 router(app);
 
