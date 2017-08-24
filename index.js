@@ -8,7 +8,8 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 //DB Setup
-mongoose.connect('mongodb://localhost:auth/auth');
+//mongoose.connect('mongodb://localhost:auth/auth');
+mongoose.connect('mongodb://heroku_jcf22zkt:heroku_jcf22zkt@ds017173.mlab.com:17173/heroku_jcf22zkt');
 
 //App shouldComponentUpdate
 app.use(morgan('combined'));
