@@ -75,7 +75,7 @@ exports.getOrCreateWeekly = function(req, res, next) {
              }, function(err, results) {
 
                 console.log('TEST Merge daily and weekly historical data started ' + symbol );
-                console.log('RESULT ' + results );
+                console.log('RESULT ' + results.weeklyHistoricals );
 
                  if (!results) {
                     return res.status(422).send({error: 'Error by getting weekly historical data'});
