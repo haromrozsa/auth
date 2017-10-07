@@ -48,36 +48,11 @@ exports.getOrCreateWeekly = function(req, res, next) {
          } else {
              console.log("Weekly Symbol not found; retrieve it from yahoo finance " + symbol);
 
-
-
-                        console.log('INPUT 21 ' + symbol );
-                        console.log('INPUT 22 ' + new Date().toISOString().substring(0, 10) );
-
-
-                     yahooFinance.historical({
-                        symbol: symbol,
-                        from: "2001-01-01",
-                        to: new Date().toISOString().substring(0, 10),
-                        period: "w"
-                     }, function (err, quotes) {
-
-                        console.log('TESTGetting weekly historical data finished ' + symbol );
-                        console.log('TESTGetting weekly historical data finished ERROR' + err );
-                        //remove the last entry not to duplicate last week
-                        quotes.reverse();
-                        if (symbol.includes('.VI')) {
-                            quotes.pop();
-                        }
-                        console.log("Weekly data " + quotes);
-
-                     });
-
-
              async.parallel({
                  weeklyHistoricals: function(callback) {
 
-                        console.log('INPUT 1 ' + symbol );
-                        console.log('INPUT 2 ' + new Date().toISOString().substring(0, 10) );
+                       // console.log('INPUT 1 ' + symbol );
+                       // console.log('INPUT 2 ' + new Date().toISOString().substring(0, 10) );
 
 
                      yahooFinance.historical({
@@ -88,28 +63,28 @@ exports.getOrCreateWeekly = function(req, res, next) {
                      }, function (err, quotes) {
 
                         console.log('Getting weekly historical data finished ' + symbol );
-                        console.log('Getting weekly historical data finished ERROR' + err );
+                       // console.log('Getting weekly historical data finished ERROR' + err );
                         //remove the last entry not to duplicate last week
                         quotes.reverse();
                         if (symbol.includes('.VI')) {
                             quotes.pop();
                         }
-                        console.log("Weekly data " + quotes);
+                        //console.log("Weekly data " + quotes);
                         callback(err, quotes);
                      });
                  },
                  dailyHistoricals: function(callback) {
                       create(symbol, "d", "2001-01-01", function(err, dailyQuotes) {
                           console.log('Getting daily historical data finished ' + symbol );
-                            console.log("Daily data " + dailyQuotes);
-                            console.log("Daily data ERROR" + err);
+                            //console.log("Daily data " + dailyQuotes);
+                            //console.log("Daily data ERROR" + err);
                           callback(err, dailyQuotes);
                       });
                  }
              }, function(err, results) {
 
-                console.log('TEST Merge daily and weekly historical data started ' + symbol );
-                console.log('RESULT ' + results.weeklyHistoricals );
+                //console.log('TEST Merge daily and weekly historical data started ' + symbol );
+                //console.log('RESULT ' + results.weeklyHistoricals );
 
                  if (!results) {
                     return res.status(422).send({error: 'Error by getting weekly historical data'});
