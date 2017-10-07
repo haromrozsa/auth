@@ -50,6 +50,11 @@ exports.getOrCreateWeekly = function(req, res, next) {
 
              async.parallel({
                  weeklyHistoricals: function(callback) {
+
+                        console.log('INPUT 1 ' + symbol );
+                        console.log('INPUT 2 ' + new Date().toISOString().substring(0, 10) );
+
+
                      yahooFinance.historical({
                         symbol: symbol,
                         from: "2001-01-01",
