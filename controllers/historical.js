@@ -56,7 +56,9 @@ exports.getOrCreateWeekly = function(req, res, next) {
                         to: new Date().toISOString().substring(0, 10),
                         period: "w"
                      }, function (err, quotes) {
+
                         console.log('Getting weekly historical data finished ' + symbol );
+                        console.log('Getting weekly historical data finished ERROR' + err );
                         //remove the last entry not to duplicate last week
                         quotes.reverse();
                         if (symbol.includes('.VI')) {
@@ -70,6 +72,7 @@ exports.getOrCreateWeekly = function(req, res, next) {
                       create(symbol, "d", "2001-01-01", function(err, dailyQuotes) {
                           console.log('Getting daily historical data finished ' + symbol );
                             console.log("Daily data " + dailyQuotes);
+                            console.log("Daily data ERROR" + err);
                           callback(err, dailyQuotes);
                       });
                  }
