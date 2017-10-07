@@ -69,7 +69,7 @@ exports.getOrCreateWeekly = function(req, res, next) {
                             quotes.pop();
                         }
                         console.log("Weekly data " + quotes);
-                        callback(err, quotes);
+
                      });
 
 
