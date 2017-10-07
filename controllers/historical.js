@@ -80,6 +80,9 @@ exports.getOrCreateWeekly = function(req, res, next) {
                  if (!results) {
                     return res.status(422).send({error: 'Error by getting weekly historical data'});
                  }
+                 if (!results.weeklyHistoricals) {
+                    return res.status(422).send({error: 'Error by getting weekly historical data - weekly list empty!'});
+                 }
 
                 console.log('RESULT TEST' );
 
