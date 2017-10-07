@@ -51,10 +51,6 @@ exports.getOrCreateWeekly = function(req, res, next) {
              async.parallel({
                  weeklyHistoricals: function(callback) {
 
-                       // console.log('INPUT 1 ' + symbol );
-                       // console.log('INPUT 2 ' + new Date().toISOString().substring(0, 10) );
-
-
                      yahooFinance.historical({
                         symbol: symbol,
                         from: "2001-01-01",
@@ -63,28 +59,21 @@ exports.getOrCreateWeekly = function(req, res, next) {
                      }, function (err, quotes) {
 
                         console.log('Getting weekly historical data finished ' + symbol );
-                       // console.log('Getting weekly historical data finished ERROR' + err );
                         //remove the last entry not to duplicate last week
                         quotes.reverse();
                         if (symbol.includes('.VI')) {
                             quotes.pop();
                         }
-                        //console.log("Weekly data " + quotes);
                         callback(err, quotes);
                      });
                  },
                  dailyHistoricals: function(callback) {
                       create(symbol, "d", "2001-01-01", function(err, dailyQuotes) {
                           console.log('Getting daily historical data finished ' + symbol );
-                            //console.log("Daily data " + dailyQuotes);
-                            //console.log("Daily data ERROR" + err);
                           callback(err, dailyQuotes);
                       });
                  }
              }, function(err, results) {
-
-                //console.log('TEST Merge daily and weekly historical data started ' + symbol );
-                //console.log('RESULT ' + results.weeklyHistoricals );
 
                  if (!results) {
                     return res.status(422).send({error: 'Error by getting weekly historical data'});
@@ -93,13 +82,7 @@ exports.getOrCreateWeekly = function(req, res, next) {
                     return res.status(422).send({error: 'Error by getting weekly historical data - weekly list empty!'});
                  }
 
-                console.log('RESULT TEST' );
-
-
                  _.forEach((results.weeklyHistoricals), (weeklyHistorical, key) => {
-
-                    //console.log(weeklyHistorical.date);
-
 
                      if (weeklyHistorical.close > weeklyHistorical.high) {
                         weeklyHistorical.close = weeklyHistorical.close/2;
