@@ -98,7 +98,7 @@ exports.getOrCreateWeekly = function(req, res, next) {
 
                  _.forEach((results.weeklyHistoricals), (weeklyHistorical, key) => {
 
-                    console.log(weeklyHistorical.date);
+                    //console.log(weeklyHistorical.date);
 
 
                      if (weeklyHistorical.close > weeklyHistorical.high) {
@@ -106,6 +106,10 @@ exports.getOrCreateWeekly = function(req, res, next) {
                      }
                      var lastWorkDayThisWeek = getLastWorkDayThisWeek(weeklyHistorical.date);
                      var monthlyOpenDate = getMonthlyOpenDate(lastWorkDayThisWeek);
+
+                    if (!lastWorkDayThisWeek) {
+                        console.error("Hiba nap " + weeklyHistorical.date);
+                    }
 
                      var dailyCandidates = _.filter(results.dailyHistoricals, (dailyHistorical) => {
                           return (new Date(dailyHistorical.date).getTime()  <= new Date(lastWorkDayThisWeek).getTime()  && new Date(dailyHistorical.date).getTime() >= new Date(monthlyOpenDate).getTime());
@@ -139,9 +143,6 @@ exports.getOrCreateWeekly = function(req, res, next) {
 
                      const security = new WeeklyHistorical( weeklyHistorical );
 
-                      console.log("2 " + weeklyHistorical.date);
-
-
                      security.save(function(err) {
                          if (err) {
                              console.log(err);
@@ -150,8 +151,6 @@ exports.getOrCreateWeekly = function(req, res, next) {
                              //return res.send({ message: symbol + ' successfully generated in DB (size): ' + _.size(results.weeklyHistoricals) });
                              return res.send( results.weeklyHistoricals );
                          }
-                         console.log("SAVED " + weeklyHistorical.date);
-
                      });
                  });
              });
@@ -237,6 +236,10 @@ getLastWorkDayThisWeek = function(date) {
         return new Date(date.setDate(date.getDate() + 2));
     } else if (date.getDay() === 4) {
         return new Date(date.setDate(date.getDate() + 1));
+    } else if (date.getDay() === 5) {
+        return new Date(date.setDate(date.getDate()));
+    } else if (date.getDay() === 6) {
+        return new Date(date.setDate(date.getDate() - 1));
     } else if (date.getDay() === 0) {
         //Fix: If yahoo returns "Sunday", it should be take as the next "Monday"
         return new Date(date.setDate(date.getDate() + 5));
