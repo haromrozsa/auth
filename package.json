@@ -28,7 +28,7 @@
     "passport": "0.3.2",
     "passport-jwt": "2.2.1",
     "passport-local": "1.0.0",
-    "yahoo-finance": "0.2.16"
+    "yahoo-finance": "0.3.3"
   },
   "keywords": [
     "example",

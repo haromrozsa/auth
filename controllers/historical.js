@@ -50,8 +50,8 @@ exports.getOrCreateWeekly = function(req, res, next) {
 
 
 
-                        console.log('INPUT 1 ' + symbol );
-                        console.log('INPUT 2 ' + new Date().toISOString().substring(0, 10) );
+                        console.log('INPUT 21 ' + symbol );
+                        console.log('INPUT 22 ' + new Date().toISOString().substring(0, 10) );
 
 
                      yahooFinance.historical({
@@ -61,8 +61,8 @@ exports.getOrCreateWeekly = function(req, res, next) {
                         period: "w"
                      }, function (err, quotes) {
 
-                        console.log('Getting weekly historical data finished ' + symbol );
-                        console.log('Getting weekly historical data finished ERROR' + err );
+                        console.log('TESTGetting weekly historical data finished ' + symbol );
+                        console.log('TESTGetting weekly historical data finished ERROR' + err );
                         //remove the last entry not to duplicate last week
                         quotes.reverse();
                         if (symbol.includes('.VI')) {
