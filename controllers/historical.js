@@ -82,6 +82,9 @@ exports.getOrCreateWeekly = function(req, res, next) {
 
                  _.forEach((results.weeklyHistoricals), (weeklyHistorical, key) => {
 
+                    console.log(weeklyHistorical.date);
+
+
                      if (weeklyHistorical.close > weeklyHistorical.high) {
                         weeklyHistorical.close = weeklyHistorical.close/2;
                      }
@@ -120,6 +123,9 @@ exports.getOrCreateWeekly = function(req, res, next) {
 
                      const security = new WeeklyHistorical( weeklyHistorical );
 
+                      console.log("2 " + weeklyHistorical.date);
+
+
                      security.save(function(err) {
                          if (err) {
                              console.log(err);
@@ -128,6 +134,8 @@ exports.getOrCreateWeekly = function(req, res, next) {
                              //return res.send({ message: symbol + ' successfully generated in DB (size): ' + _.size(results.weeklyHistoricals) });
                              return res.send( results.weeklyHistoricals );
                          }
+                         console.log("SAVED " + weeklyHistorical.date);
+
                      });
                  });
              });
