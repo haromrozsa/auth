@@ -57,18 +57,19 @@ exports.getOrCreateWeekly = function(req, res, next) {
                         period: "w"
                      }, function (err, quotes) {
                         console.log('Getting weekly historical data finished ' + symbol );
-                        //remove the last entry not to duplikate last week
+                        //remove the last entry not to duplicate last week
                         quotes.reverse();
                         if (symbol.includes('.VI')) {
                             quotes.pop();
                         }
-
+                        console.log("Weekly data " + quotes);
                         callback(err, quotes);
                      });
                  },
                  dailyHistoricals: function(callback) {
                       create(symbol, "d", "2001-01-01", function(err, dailyQuotes) {
                           console.log('Getting daily historical data finished ' + symbol );
+                            console.log("Daily data " + dailyQuotes);
                           callback(err, dailyQuotes);
                       });
                  }
@@ -80,7 +81,7 @@ exports.getOrCreateWeekly = function(req, res, next) {
                  if (!results) {
                     return res.status(422).send({error: 'Error by getting weekly historical data'});
                  }
-                 if (!results.weeklyHistoricals) {
+                 if (!results.weeklyHistoricals || weeklyHistorical == '') {
                     return res.status(422).send({error: 'Error by getting weekly historical data - weekly list empty!'});
                  }
 
